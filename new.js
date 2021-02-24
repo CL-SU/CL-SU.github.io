@@ -40,7 +40,7 @@ function readTextFile(file, callback) {
 }
 
 //usage:
-readTextFile("ar_predict.json", function(text){
+readTextFile("https://cl-su.github.io/ar_predict.json", function(text){
     var data = JSON.parse(text);
     console.log(data);
     console.log(0);
