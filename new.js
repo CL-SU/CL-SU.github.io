@@ -43,6 +43,7 @@ function readTextFile(file, callback) {
 readTextFile("https://cl-su.github.io/ar_predict.json", function(text){
     var ar_predict = JSON.parse(text);
     console.log(ar_predict);
-    // print(data)
+    console.log(0);
 });
 console.log(ar_predict);
+console.log(1);
