@@ -42,8 +42,7 @@ function loaddata(url){
 setInterval(function() {
 	if(time<976)
 	{
-		loaddata("https://cl-su.github.io/ar_predict.json",time);
-		loaddata("https://cl-su.github.io/rf_predict.json",time);
+		loaddata("https://cl-su.github.io/data.json",time);
 		time++;
 	}
 	else{
