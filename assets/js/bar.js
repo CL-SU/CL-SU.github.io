@@ -13,17 +13,18 @@ new Chart(document.getElementById("barchart"), {
 			backgroundColor: "#000080",
 			borderWidth: 1,
 		}
-		, {
-			data: [78.43,82.97, 30.45, 33.23],
-			label: 'ANN prediction',
-			backgroundColor: "#008000",
-			borderWidth: 1,
-		}, {
-			data: [86.78,89.54, 31.67, 34.01],
-			label: 'CNN prediction',
-			backgroundColor: "#FFD700",
-			borderWidth: 1,
-		}]
+		// , {
+		// 	data: [78.43,82.97, 30.45, 33.23],
+		// 	label: 'ANN prediction',
+		// 	backgroundColor: "#008000",
+		// 	borderWidth: 1,
+		// }, {
+		// 	data: [86.78,89.54, 31.67, 34.01],
+		// 	label: 'CNN prediction',
+		// 	backgroundColor: "#FFD700",
+		// 	borderWidth: 1,
+		// }
+		]
 	},
 	options: {
 		responsive: true,

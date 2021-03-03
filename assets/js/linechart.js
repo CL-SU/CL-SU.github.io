@@ -25,10 +25,10 @@ function loaddata(time){
 		linechart.data.datasets[1].data = ar_predict;
 		rf_predict = data["prediction"][1]["data"].slice(time,time+period);
 		linechart.data.datasets[2].data = rf_predict;
-		ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
-		linechart.data.datasets[3].data = ann_predict;
-		cnn_predict = data["prediction"][1]["data"].slice(time+period,time+2*period);
-		linechart.data.datasets[4].data = cnn_predict;
+		// ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
+		// linechart.data.datasets[3].data = ann_predict;
+		// cnn_predict = data["prediction"][1]["data"].slice(time+period,time+2*period);
+		// linechart.data.datasets[4].data = cnn_predict;
 		// console.log("api data",data) 
 		var date = new Array()
 		for (var i=0;i<period;i++)
@@ -72,20 +72,22 @@ var linechart = new Chart(document.getElementById("linechart"),
 			backgroundColor: window.chartColors.navy,
 			borderColor: window.chartColors.navy,
 			data: [10,40,20,35,25,50,10,70,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
-		},{
-			label: 'ANN prediction',
-			backgroundColor: "rgb(00, 125, 00)",
-			borderColor: "rgb(00, 125, 00)",
-			data: [40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
-			// data: setTimeout(ar_predict, 1000),
-			fill: false,
-		}, {
-			label: 'CNN prediction',
-			fill: false,
-			backgroundColor: "rgb(255, 205, 86)",
-			borderColor: "rgb(255, 205, 86)",
-			data: [10,40,20,35,25,50,10,70,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
-		}]
+		}
+		// ,{
+		// 	label: 'ANN prediction',
+		// 	backgroundColor: "rgb(00, 125, 00)",
+		// 	borderColor: "rgb(00, 125, 00)",
+		// 	data: [40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
+		// 	// data: setTimeout(ar_predict, 1000),
+		// 	fill: false,
+		// }, {
+		// 	label: 'CNN prediction',
+		// 	fill: false,
+		// 	backgroundColor: "rgb(255, 205, 86)",
+		// 	borderColor: "rgb(255, 205, 86)",
+		// 	data: [10,40,20,35,25,50,10,70,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
+		// }
+		]
 	},
 	options: {
 		responsive: true,
