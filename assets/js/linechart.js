@@ -1,7 +1,7 @@
-var time=0;
-var period=72;
+var time=31;
+var period=12;
 setInterval(function() {
-	if(time<1000-2*period)
+	if(time<10000-period)
 	{
 		loaddata(time);
 		time++;
@@ -25,14 +25,16 @@ function loaddata(time){
 		rf_predict = data["prediction"][1]["y1"].slice(time,time+1)
 		ann1_predict = data["prediction"][2]["y1"].slice(time,time+1)
 
-		for (var i=2;i<13;i++)
+		for (var i=2;i<=12;i++)
 		{ 
 			arx_predict.push(data["prediction"][0]["y"+i.toString()].slice(time,time+1));
 			rf_predict.push(data["prediction"][1]["y"+i.toString()].slice(time,time+1));
 			ann1_predict.push(data["prediction"][2]["y"+i.toString()].slice(time,time+1));
 			
 		}
-		console.log(arx_predict.length)
+		// console.log(arx_predict)
+		// console.log(rf_predict)
+		// console.log(ann1_predict)
 		// ar_predict = data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1);
 		linechart.data.datasets[1].data = arx_predict;
 		// rf_predict = data["prediction"][1]["data"].slice(time,time+period);
@@ -43,12 +45,13 @@ function loaddata(time){
 		// linechart.data.datasets[4].data = cnn_predict;
 		// console.log("api data",data) 
 		var date = new Array()
-		for (var i=0;i<period;i++)
+		date.push(data["Month"][time]+"."+data["Day"][time]+"."+data["Hour"][time]+' (now)')
+		for (var i=1;i<=period;i++)
 		{ 
-			date.push(data["Month"][time+i]+"."+data["Day"][time+i]+"."+data["Hour"][time+i])
+			date.push(data["Month"][time+i]+"."+data["Day"][time+i]+"."+data["Hour"][time+i]+' (' +i+' hr later)')
 		}
 		linechart.data.labels = date;
-		linechart.data.datasets[0].data = data["y"].slice(time,time+period-24)
+		linechart.data.datasets[0].data = data["y"].slice(time,time+period)
 		linechart.update();
     })
     .catch((err) => {
@@ -62,7 +65,8 @@ var linechart = new Chart(document.getElementById("linechart"),
 {
 	type: 'line',
 	data: {
-		labels: ['y0', 'y1','y2','y3','y4','y5','y6','y7','y8','y9','y10', 'y11','y12','y13','y14','y15','y16','y17','y18','y19','y20','y21','y22','y23',
+		labels: ['y0', 'y1','y2','y3','y4','y5','y6','y7','y8','y9','y10', 'y11','y12'
+		// ,'y13','y14','y15','y16','y17','y18','y19','y20','y21','y22','y23',
 		// 'y24', 'y25','y26','y27','y28','y29','y30','y31','y32','y33','y34','y35','y36','y37','y38','y39','y40','y41','y42','y43','y44','y45','y46','y47',
 		// 'y48','y49','y50','y51','y52','y53','y54','y55','y56','y57','y58','y59','y60','y61','y62','y63','y64','y65','y66','y67','y68','y69','y70','71'
 	],
@@ -101,7 +105,7 @@ var linechart = new Chart(document.getElementById("linechart"),
 		// },
 		tooltips: {
 			mode: 'index',
-			// intersect: false,
+			intersect: false,
 		},
 		// hover: {
 		// 	mode: 'nearest',
@@ -112,14 +116,23 @@ var linechart = new Chart(document.getElementById("linechart"),
 				display: true,
 				scaleLabel: {
 					display: true,
-					labelString: 'Hour'
+					labelString: 'Hour',
+					
 				}
 			}],
 			yAxes: [{
+				ticks:{
+					min: -200,
+					max: 1200,
+					// tickInterval:100,
+				},
+				
 				display: true,
 				scaleLabel: {
 					display: true,
-					labelString: 'Value'
+					labelString: 'Solar Radiation',
+				
+				
 				}
 			}]
 		}
