@@ -42,8 +42,9 @@ function loaddata(time){
 		{ 
 			date.push(data["Hour"][time+i]+' (' +i+' hr later)')
 		}
-		linechart.data.labels = date;
-		linechart.options.scales.xAxes[0].labelString = data["Month"][time]+"."+data["Day"][time]
+		
+		linechart.options.scales.xAxes[0].scaleLabel.labelString = data["Month"][time]+"."+data["Day"][time]
+		console.log(linechart.options.scales.xAxes[0].labelString)
 		linechart.data.datasets[0].data = data["y"].slice(time,time+period)
 		linechart.update();
     })
