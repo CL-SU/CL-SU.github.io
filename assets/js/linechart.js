@@ -1,7 +1,7 @@
 var time=31;
 var period=12;
 setInterval(function() {
-	if(time<10000-period)
+	if(time<10363-period)
 	{
 		loaddata(time);
 		time++;
@@ -16,11 +16,9 @@ setInterval(function() {
 function loaddata(time){
     fetch("https://raw.githubusercontent.com/CL-SU/CL-SU.github.io/master/data.json")
     .then((response) => {
-		// console.log("response",response.json())
         return response.json()
     })
-    .then((data) => {	
-        // console.log("api data",data.data) 
+    .then((data) => {
 		arx_predict = data["prediction"][0]["y1"].slice(time,time+1)
 		rf_predict = data["prediction"][1]["y1"].slice(time,time+1)
 		ann1_predict = data["prediction"][2]["y1"].slice(time,time+1)
@@ -32,25 +30,20 @@ function loaddata(time){
 			ann1_predict.push(data["prediction"][2]["y"+i.toString()].slice(time,time+1));
 			
 		}
-		// console.log(arx_predict)
-		// console.log(rf_predict)
-		// console.log(ann1_predict)
 		// ar_predict = data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1);
 		linechart.data.datasets[1].data = arx_predict;
 		// rf_predict = data["prediction"][1]["data"].slice(time,time+period);
 		linechart.data.datasets[2].data = rf_predict;
 		// ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
 		linechart.data.datasets[3].data = ann1_predict;
-		// cnn_predict = data["prediction"][1]["data"].slice(time+period,time+2*period);
-		// linechart.data.datasets[4].data = cnn_predict;
-		// console.log("api data",data) 
 		var date = new Array()
-		date.push(data["Month"][time]+"."+data["Day"][time]+"."+data["Hour"][time]+' (now)')
+		date.push(data["Hour"][time]+' (now)')
 		for (var i=1;i<=period;i++)
 		{ 
-			date.push(data["Month"][time+i]+"."+data["Day"][time+i]+"."+data["Hour"][time+i]+' (' +i+' hr later)')
+			date.push(data["Hour"][time+i]+' (' +i+' hr later)')
 		}
 		linechart.data.labels = date;
+		linechart.options.scales.xAxes[0].labelString = data["Month"][time]+"."+data["Day"][time]
 		linechart.data.datasets[0].data = data["y"].slice(time,time+period)
 		linechart.update();
     })
