@@ -14,7 +14,7 @@ setInterval(function() {
 
 
 function loaddata(time){
-    fetch("https://github.com/CL-SU/CL-SU.github.io/data.json")
+    fetch("https://raw.githubusercontent.com/CL-SU/CL-SU.github.io/master/data.json")
     .then((response) => {
 		// console.log("response",response.json())
         return response.json()
