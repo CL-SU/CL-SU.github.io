@@ -14,22 +14,31 @@ setInterval(function() {
 
 
 function loaddata(time){
-    fetch("https://cl-su.github.io/data.json")
+    fetch("https://github.com/CL-SU/CL-SU.github.io/tree/master/assets/js/data.json")
     .then((response) => {
 		// console.log("response",response.json())
         return response.json()
     })
     .then((data) => {	
         // console.log("api data",data.data) 
-		current = data
-		ar_predict = data["prediction"][0]["data"].slice(time,time+period);
+		ar_predict = data["prediction"][0]["y1"].slice(time,time+1)
+		rf_predict = data["prediction"][1]["y1"].slice(time,time+1)
+		ann1_predict = data["prediction"][2]["y1"].slice(time,time+1)
+
+		for (var i=2;i<14;i++)
+		{ 
+			ar_predict.push(data["prediction"][0]["y"+i.toString()].slice(time,time+1));
+			rf_predict.push(data["prediction"][1]["y"+i.toString()].slice(time,time+1));
+			ann1_predict.push(data["prediction"][2]["y"+i.toString()].slice(time,time+1));
+		}
+		// ar_predict = data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1);
 		linechart.data.datasets[1].data = ar_predict;
-		rf_predict = data["prediction"][1]["data"].slice(time,time+period);
+		// rf_predict = data["prediction"][1]["data"].slice(time,time+period);
 		linechart.data.datasets[2].data = rf_predict;
-		ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
-		linechart.data.datasets[3].data = ann_predict;
-		cnn_predict = data["prediction"][1]["data"].slice(time+period,time+2*period);
-		linechart.data.datasets[4].data = cnn_predict;
+		// ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
+		linechart.data.datasets[3].data = ann1_predict;
+		// cnn_predict = data["prediction"][1]["data"].slice(time+period,time+2*period);
+		// linechart.data.datasets[4].data = cnn_predict;
 		// console.log("api data",data) 
 		var date = new Array()
 		for (var i=0;i<period;i++)
