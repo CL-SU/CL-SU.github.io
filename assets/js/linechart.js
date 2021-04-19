@@ -23,7 +23,7 @@ function loaddata(time){
 		rf_predict = data["prediction"][1]["y1"].slice(time,time+1)
 		ann1_predict = data["prediction"][2]["y1"].slice(time,time+1)
 
-		for (var i=2;i<=12;i++)
+		for (var i=2;i<13;i++)
 		{ 
 			arx_predict.push(data["prediction"][0]["y"+i.toString()].slice(time,time+1));
 			rf_predict.push(data["prediction"][1]["y"+i.toString()].slice(time,time+1));
@@ -38,7 +38,7 @@ function loaddata(time){
 		linechart.data.datasets[3].data = ann1_predict;
 		var date = new Array()
 		date.push(data["Hour"][time]+' (now)')
-		for (var i=1;i<=period;i++)
+		for (var i=1;i<13;i++)
 		{ 
 			date.push(data["Hour"][time+i]+' (' +i+' hr later)')
 		}
