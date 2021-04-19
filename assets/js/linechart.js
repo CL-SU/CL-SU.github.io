@@ -21,18 +21,20 @@ function loaddata(time){
     })
     .then((data) => {	
         // console.log("api data",data.data) 
-		ar_predict = data["prediction"][0]["y1"].slice(time,time+1)
+		arx_predict = data["prediction"][0]["y1"].slice(time,time+1)
 		rf_predict = data["prediction"][1]["y1"].slice(time,time+1)
 		ann1_predict = data["prediction"][2]["y1"].slice(time,time+1)
 
-		for (var i=2;i<14;i++)
+		for (var i=2;i<13;i++)
 		{ 
-			ar_predict.push(data["prediction"][0]["y"+i.toString()].slice(time,time+1));
+			arx_predict.push(data["prediction"][0]["y"+i.toString()].slice(time,time+1));
 			rf_predict.push(data["prediction"][1]["y"+i.toString()].slice(time,time+1));
 			ann1_predict.push(data["prediction"][2]["y"+i.toString()].slice(time,time+1));
+			
 		}
+		console.log(arx_predict.length)
 		// ar_predict = data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1)+data["prediction"][0]["data"].slice(time,time+1);
-		linechart.data.datasets[1].data = ar_predict;
+		linechart.data.datasets[1].data = arx_predict;
 		// rf_predict = data["prediction"][1]["data"].slice(time,time+period);
 		linechart.data.datasets[2].data = rf_predict;
 		// ann_predict = data["prediction"][0]["data"].slice(time+period,time+2*period);
@@ -46,7 +48,7 @@ function loaddata(time){
 			date.push(data["Month"][time+i]+"."+data["Day"][time+i]+"."+data["Hour"][time+i])
 		}
 		linechart.data.labels = date;
-		linechart.data.datasets[0].data = data["Y test"].slice(time,time+period-24)
+		linechart.data.datasets[0].data = data["y"].slice(time,time+period-24)
 		linechart.update();
     })
     .catch((err) => {
@@ -68,7 +70,7 @@ var linechart = new Chart(document.getElementById("linechart"),
 			label: 'Real-time data',
 			backgroundColor: "rgb(255, 159, 64)",
 			borderColor: "rgb(255, 159, 64)",
-			data: [40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
+			data: [1,2,3,2,5,1,7,1,4,2,3,2,5,1,7,1,4,2,3,2,5,10,0,1],
 			fill: false,
 		}, {
 			label: 'ARX prediction',
@@ -86,7 +88,7 @@ var linechart = new Chart(document.getElementById("linechart"),
 			label: 'ANN(1) prediction',
 			backgroundColor: "rgb(00, 125, 00)",
 			borderColor: "rgb(00, 125, 00)",
-			data: [40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10,40,20,35,25,50,10,70,10],
+			data: [20,10,15,15,20,10,30,5,20,10,15,5,20,10,70,10,40,20,35,25,50,10,70,10],
 			// data: setTimeout(ar_predict, 1000),
 			fill: false,
 		}]
